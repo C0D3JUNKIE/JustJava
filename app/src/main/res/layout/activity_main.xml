@@ -26,6 +26,22 @@
         android:textSize="16sp"
         android:textColor="@android:color/black"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:paddingTop="16dp"
+        android:text="@string/price_header"
+        android:textAllCaps="true"/>
+
+    <TextView
+        android:id="@+id/price_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price_text_view"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
