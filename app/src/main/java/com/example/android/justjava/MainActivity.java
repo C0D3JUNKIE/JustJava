@@ -20,9 +20,9 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-//    private static int numberOfCoffeesOrdered = 0;
-    private static int numberOfCoffees = 2;
-    private static int pricePerCup = 5;
+    private static double price = 0;
+    private static int numberOfCoffees = 0;
+    private static final int pricePerCup = 5;
 
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
      * This method displays the given quantity value on the screen.
      */
     private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        TextView quantityTextView = (TextView) findVigit ewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
 
@@ -57,13 +57,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void incrementQuantity(View view){
-        int quantity = 3;
-        display(quantity);
+        numberOfCoffees++;
+        display(numberOfCoffees);
     }
 
     public void decrementQuantity(View view){
-        int quantity = 1;
-        display(quantity);
+        if(numberOfCoffees == 0){
+
+        }else{
+            numberOfCoffees--;
+            display(numberOfCoffees);
+        }
+
     }
 
 
