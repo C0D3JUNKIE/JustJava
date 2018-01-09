@@ -12,7 +12,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -20,9 +23,12 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static double price = 0;
+    private static int price = 0;
     private static int numberOfCoffees = 0;
     private static final int pricePerCup = 5;
+
+    Calendar calendar = Calendar.getInstance();
+    Date now = calendar.getTime();
 
 
     @Override
@@ -36,16 +42,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         display(numberOfCoffees);
-        displayPrice(numberOfCoffees *  pricePerCup);
-//        String priceMessage = "Free";
-//        displayMessage(priceMessage);
+        String priceMessage = "Total number of coffees ordered is: " + numberOfCoffees;
+        priceMessage = priceMessage + "\nThank You.";
+        displayMessage(priceMessage);
+        calculatePrice(numberOfCoffees);
+        displayPrice(price);
+        createOrderSummary();
+
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
     private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
+        TextView quantityTextView = findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
 
@@ -54,15 +64,30 @@ public class MainActivity extends AppCompatActivity {
      * @param number
      */
     private void displayPrice(int number){
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        TextView priceTextView = findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
+    private void displayMessage(String message){
+        TextView displayMessage = findViewById(R.id.message_display);
+        displayMessage.setText(message);
+    }
+
+    /**
+     * Increment the quantity
+     *
+     * @param view
+     */
     public void incrementQuantity(View view){
         numberOfCoffees++;
         display(numberOfCoffees);
     }
 
+    /**
+     * Decrement the quantity
+     *
+     * @param view
+     */
     public void decrementQuantity(View view){
         if(numberOfCoffees == 0){
 
@@ -70,15 +95,31 @@ public class MainActivity extends AppCompatActivity {
             numberOfCoffees--;
             display(numberOfCoffees);
         }
-
     }
 
     /**
-     * This method displays the given text on the screen.
+     * Calculates the price of the order.
+     *
+     * @param quantity is the number of cups of coffee ordered
      */
-    private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+    private int calculatePrice(int quantity){
+        price = quantity * pricePerCup;
+        return price;
     }
+
+    /**
+     * returns customer name
+     *
+     * @return String customerMessage returning Customer Name
+     */
+    private void createOrderSummary(){
+        String currentTime = DateFormat.getDateTimeInstance().format(now);
+        String customerName = "Name:  Sir Loin";
+        TextView displayMessage = findViewById(R.id.customer_name);
+        displayMessage.setText(customerName);
+        TextView todaysDate = findViewById(R.id.todays_date);
+        todaysDate.setText(currentTime);
+    }
+
 
 }

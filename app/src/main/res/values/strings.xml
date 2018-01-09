@@ -7,4 +7,6 @@
     <string name="order_button">Order</string>
     <string name="increment">+</string>
     <string name="decrement">-</string>
+    <string name="java_order_title">Your Coffee Order</string>
+    <string name="order_summary">Your Java Order Detailed</string>
 </resources>
