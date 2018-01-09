@@ -20,10 +20,9 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static double price = 0;
+    private static int price = 0;
     private static int numberOfCoffees = 0;
     private static final int pricePerCup = 5;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         display(numberOfCoffees);
-        displayPrice(numberOfCoffees *  pricePerCup);
+        String priceMessage = "Total number of coffees ordered is: " + numberOfCoffees;
+        priceMessage = priceMessage + "\nThank You.";
+        displayMessage(priceMessage);
+        calculatePrice(numberOfCoffees);
+        displayPrice(price);
     }
 
     /**
@@ -56,11 +59,26 @@ public class MainActivity extends AppCompatActivity {
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
+    private void displayMessage(String message){
+        TextView displayMessage = (TextView) findViewById(R.id.message_display);
+        displayMessage.setText(message);
+    }
+
+    /**
+     * Increment the quantity
+     *
+     * @param view
+     */
     public void incrementQuantity(View view){
         numberOfCoffees++;
         display(numberOfCoffees);
     }
 
+    /**
+     * Decrement the quantity
+     *
+     * @param view
+     */
     public void decrementQuantity(View view){
         if(numberOfCoffees == 0){
 
@@ -68,8 +86,16 @@ public class MainActivity extends AppCompatActivity {
             numberOfCoffees--;
             display(numberOfCoffees);
         }
-
     }
 
+    /**
+     * Calculates the price of the order.
+     *
+     * @param quantity is the number of cups of coffee ordered
+     */
+    private int calculatePrice(int quantity){
+        price = quantity * pricePerCup;
+        return price;
+    }
 
 }
