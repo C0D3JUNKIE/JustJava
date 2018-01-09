@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
         display(numberOfCoffees);
         displayPrice(numberOfCoffees *  pricePerCup);
+//        String priceMessage = "Free";
+//        displayMessage(priceMessage);
     }
 
     /**
@@ -71,5 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method displays the given text on the screen.
+     */
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
+    }
 
 }
