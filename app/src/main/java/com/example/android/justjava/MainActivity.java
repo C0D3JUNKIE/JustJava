@@ -10,6 +10,7 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -105,33 +106,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * returns customer name
+     * Creates summary of the current order and displays it.
      *
-     * @return String customerMessage returning Customer Name
      */
     private void createOrderSummary(){
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         String currentTime = DateFormat.getDateTimeInstance().format(now);
         String customerName = "Name:  Sir Loin";
+
         TextView displayMessage = findViewById(R.id.customer_name);
         displayMessage.setText(customerName);
+
         TextView todaysDate = findViewById(R.id.todays_date);
         todaysDate.setText(currentTime);
+
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_topping_checkbox);
+        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_topping_checkbox);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+
         TextView toppingsMessage = (TextView) findViewById(R.id.toppings_message);
-        toppingsMessage.setText(addWhippedCream());
+        toppingsMessage.setText("Has Whipped Cream:  " + hasWhippedCream + "\nChocolate Sprinkles:  " + hasChocolate);
     }
 
-    private String addWhippedCream(){
-        String toWhipOrNotToWhip = "Whipped cream has been added to your coffee.";
-        String notToWhip = "No whipped cream added.";
-        CheckBox checkBox = (CheckBox) findViewById(R.id.whipped_topping_checkbox);
-        if(checkBox.isChecked()){
-            return toWhipOrNotToWhip;
-        }else{
-            return notToWhip;
-        }
-    }
+
+    //MOVE TO EXPERIMENTAL BRANCH OR CONSIDER JUST SCRAPPING - This might be CRAP!!!!
+//    private String addWhippedCream(){
+//        boolean whippedCream = false;
+//        String toWhipOrNotToWhip = "Whipped cream has been added to your coffee.";
+//        String notToWhip = "No whipped cream added.";
+//        CheckBox checkBox = (CheckBox) findViewById(R.id.whipped_topping_checkbox);
+//        if(checkBox.isChecked(){
+//            whippedCream = true;
+//            Log.v("MainActivity","************ LOG *** Checkbox is checked! Checkbox is checked! Checkbox is checked! *** LOG ************");
+//            return toWhipOrNotToWhip;
+//        }else{
+//            whippedCream = false;
+//            Log.v("MainActivity","************ LOG *** Checkbox is NOT checked! Checkbox is NOT checked! Checkbox is NOT checked! *** LOG ************");
+//            return notToWhip;
+//        }
+//    }
 
 
 }

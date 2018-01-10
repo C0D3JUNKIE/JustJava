@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">C0DEJUNKIES Just Java</string>
+    <string name="app_name">C0d3junkies Just Java</string>
     <string name="quantity_header">Quantity</string>
     <string name="quantity_text_view">0</string>
     <string name="price_header">Price</string>
@@ -10,5 +10,6 @@
     <string name="java_order_title">Your Coffee Order</string>
     <string name="order_summary">Your Java Order Detailed</string>
     <string name="toppings_header">Toppings</string>
-    <string name="whipped_topping">Organic Whipped Cream</string>
+    <string name="whipped_topping">Organic WhippedCream</string>
+    <string name="chocolate_topping">FairTrade Chocolate</string>
 </resources>
