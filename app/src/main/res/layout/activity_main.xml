@@ -32,6 +32,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:text="@string/toppings_header"
+            android:textAllCaps="true"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/whipped_topping_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"/>
+
+            <TextView
+                android:id="@+id/add_whipped_topping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="24dp"
+                android:text="@string/whipped_topping"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:text="@string/quantity_header"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light"
@@ -101,6 +134,13 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/toppings_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
 
         <TextView
             android:id="@+id/message_display"

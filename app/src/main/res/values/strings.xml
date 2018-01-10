@@ -9,4 +9,6 @@
     <string name="decrement">-</string>
     <string name="java_order_title">Your Coffee Order</string>
     <string name="order_summary">Your Java Order Detailed</string>
+    <string name="toppings_header">Toppings</string>
+    <string name="whipped_topping">Organic Whipped Cream</string>
 </resources>

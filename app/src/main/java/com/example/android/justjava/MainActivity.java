@@ -11,6 +11,7 @@ package com.example.android.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -26,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private static int price = 0;
     private static int numberOfCoffees = 0;
     private static final int pricePerCup = 5;
-
-    Calendar calendar = Calendar.getInstance();
-    Date now = calendar.getTime();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,12 +110,27 @@ public class MainActivity extends AppCompatActivity {
      * @return String customerMessage returning Customer Name
      */
     private void createOrderSummary(){
+        Calendar calendar = Calendar.getInstance();
+        Date now = calendar.getTime();
         String currentTime = DateFormat.getDateTimeInstance().format(now);
         String customerName = "Name:  Sir Loin";
         TextView displayMessage = findViewById(R.id.customer_name);
         displayMessage.setText(customerName);
         TextView todaysDate = findViewById(R.id.todays_date);
         todaysDate.setText(currentTime);
+        TextView toppingsMessage = (TextView) findViewById(R.id.toppings_message);
+        toppingsMessage.setText(addWhippedCream());
+    }
+
+    private String addWhippedCream(){
+        String toWhipOrNotToWhip = "Whipped cream has been added to your coffee.";
+        String notToWhip = "No whipped cream added.";
+        CheckBox checkBox = (CheckBox) findViewById(R.id.whipped_topping_checkbox);
+        if(checkBox.isChecked()){
+            return toWhipOrNotToWhip;
+        }else{
+            return notToWhip;
+        }
     }
 
 
