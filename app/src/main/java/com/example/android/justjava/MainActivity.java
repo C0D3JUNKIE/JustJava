@@ -8,12 +8,16 @@ package com.example.android.justjava;
  * in the project's AndroidManifest.xml file.
  **/
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static int numberOfCoffees = 0;
     private static final int pricePerCup = 5;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         display(numberOfCoffees);
+        displayPrice(price);
+        calculatePrice(numberOfCoffees);
         String priceMessage = "Total number of coffees ordered is: " + numberOfCoffees;
         priceMessage = priceMessage + "\nThank You.";
         displayMessage(priceMessage);
-        calculatePrice(numberOfCoffees);
-        displayPrice(price);
         createOrderSummary();
-
+//        composeEmail();
     }
 
     /**
@@ -77,8 +82,12 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void incrementQuantity(View view){
-        numberOfCoffees++;
-        display(numberOfCoffees);
+        if(numberOfCoffees == 100){
+            Toast.makeText(this, "100 Coffees is the limit!", Toast.LENGTH_SHORT).show();
+        }else{
+            numberOfCoffees++;
+            display(numberOfCoffees);
+        }
     }
 
     /**
@@ -88,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void decrementQuantity(View view){
         if(numberOfCoffees == 0){
-
+            Toast.makeText(this, "If you going to order make sure you have at least one item!", Toast.LENGTH_LONG).show();
         }else{
             numberOfCoffees--;
             display(numberOfCoffees);
@@ -101,8 +110,25 @@ public class MainActivity extends AppCompatActivity {
      * @param quantity is the number of cups of coffee ordered
      */
     private int calculatePrice(int quantity){
-        price = quantity * pricePerCup;
-        return price;
+
+        CheckBox whippedCreamCheckBox = (CheckBox) findViewById(R.id.whipped_topping_checkbox);
+        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+        CheckBox chocolateCheckBox = (CheckBox) findViewById(R.id.chocolate_topping_checkbox);
+        boolean hasChocolate = chocolateCheckBox.isChecked();
+
+        if((hasChocolate == true) && (hasWhippedCream == true)){
+            price = quantity * (pricePerCup + 3);
+            return price;
+        }else if((hasChocolate == true) && (hasWhippedCream == false)){
+            price = quantity * (pricePerCup + 2);
+            return price;
+        }else if((hasChocolate == false) && (hasWhippedCream == true)){
+            price = quantity * (pricePerCup + 1);
+            return price;
+        }else{
+            price = quantity * pricePerCup;
+            return price;
+        }
     }
 
     /**
@@ -113,7 +139,9 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         String currentTime = DateFormat.getDateTimeInstance().format(now);
-        String customerName = "Name:  Sir Loin";
+
+        EditText customerNameTextField = (EditText) findViewById(R.id.edit_customer_name);
+        String customerName = customerNameTextField.getText().toString();
 
         TextView displayMessage = findViewById(R.id.customer_name);
         displayMessage.setText(customerName);
@@ -132,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     //MOVE TO EXPERIMENTAL BRANCH OR CONSIDER JUST SCRAPPING - This might be CRAP!!!!
 //    private String addWhippedCream(){
 //        boolean whippedCream = false;
@@ -147,6 +177,22 @@ public class MainActivity extends AppCompatActivity {
 //            Log.v("MainActivity","************ LOG *** Checkbox is NOT checked! Checkbox is NOT checked! Checkbox is NOT checked! *** LOG ************");
 //            return notToWhip;
 //        }
+//    }
+
+//    /**
+//     * @param addresses
+//     * @param subject
+//     */
+//    public void composeEmail(String[] addresses, String subject) {
+//
+//        Intent intent = new Intent(Intent.ACTION_SENDTO);
+//        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+//        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+//        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            startActivity(intent);
+//        }
+//
 //    }
 
 
