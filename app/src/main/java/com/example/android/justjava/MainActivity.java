@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private static int price = 0;
     private static int numberOfCoffees = 0;
     private static final int pricePerCup = 5;
+    private String mCustomerName;
+    private String[] mCustomerEmail;
+    private String mOrderSummary;
 
 
     @Override
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         priceMessage = priceMessage + "\nThank You.";
         displayMessage(priceMessage);
         createOrderSummary();
-//        composeEmail();
+        composeEmail(mCustomerEmail, mCustomerName);
     }
 
     /**
@@ -136,15 +139,16 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private void createOrderSummary(){
+
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         String currentTime = DateFormat.getDateTimeInstance().format(now);
 
         EditText customerNameTextField = (EditText) findViewById(R.id.edit_customer_name);
-        String customerName = customerNameTextField.getText().toString();
+        mCustomerName = customerNameTextField.getText().toString();
 
         TextView displayMessage = findViewById(R.id.customer_name);
-        displayMessage.setText(customerName);
+        displayMessage.setText(mCustomerName);
 
         TextView todaysDate = findViewById(R.id.todays_date);
         todaysDate.setText(currentTime);
@@ -157,6 +161,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView toppingsMessage = (TextView) findViewById(R.id.toppings_message);
         toppingsMessage.setText("Has Whipped Cream:  " + hasWhippedCream + "\nChocolate Sprinkles:  " + hasChocolate);
+
+        mOrderSummary = "Thank you " + mCustomerName + " for your order." +
+        "\n" + "\nYou ordered: " + numberOfCoffees + " coffees." + "\nYour total cost was:  $" + price;
+
     }
 
 
@@ -179,21 +187,22 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-//    /**
-//     * @param addresses
-//     * @param subject
-//     */
-//    public void composeEmail(String[] addresses, String subject) {
-//
-//        Intent intent = new Intent(Intent.ACTION_SENDTO);
-//        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-//        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
-//        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            startActivity(intent);
-//        }
-//
-//    }
+    /**
+     * @param addresses
+     * @param subject
+     */
+    public void composeEmail(String[] addresses, String subject) {
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, mCustomerEmail);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "C0d3Junkies Just Java:  Receipt for " + mCustomerName + "'s coffee order!");
+        intent.putExtra(Intent.EXTRA_TEXT, mOrderSummary);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+    }
 
 
 }
